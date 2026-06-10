@@ -11,6 +11,19 @@
         <title>Obliviosa</title>
     </head>
     <body style="background-color: black">
+        <h1 style="color:white;text-align:center;margin-top:2em;">Obliviosa Subathon</h1>
+        <div style="color:gray;text-align:center;font-size:1em;margin-bottom:0.5em;">
+            Build 2<br>
+            <span id="buildDate"></span>
+        </div>
+        <script type="text/javascript">
+            // Display build date and time in the appropriate span
+            // Set the date and time of build here:
+            document.addEventListener('DOMContentLoaded', function() {
+                var buildDateString = '2026-05-19 03:13 PM UTC'; // <-- Update time as needed
+                document.getElementById('buildDate').textContent = 'Build Date: ' + buildDateString;
+            });
+        </script>
         <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
