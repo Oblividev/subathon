@@ -1,12 +1,14 @@
 [
 null,
-{"id":1,"expanded":true,"name":"Floroma Town Upper E","order":1,"parentId":0,"scrollX":555,"scrollY":670.5,"quick":false},
-{"id":2,"expanded":true,"name":"Floroma Town Lower E","order":8,"parentId":0,"scrollX":605,"scrollY":331.5,"quick":false},
-{"id":3,"expanded":false,"name":"Floroma Town Upper W","order":9,"parentId":0,"scrollX":555,"scrollY":1198.5,"quick":false},
-{"id":4,"expanded":true,"name":"Nunya House 1F","order":3,"parentId":1,"scrollX":555,"scrollY":457.5,"quick":false},
-{"id":5,"expanded":false,"name":"Liv's House","order":2,"parentId":1,"scrollX":555,"scrollY":329.5,"quick":false},
-{"id":6,"expanded":false,"name":"Nunya House 2F","order":4,"parentId":1,"scrollX":555,"scrollY":450.5,"quick":false},
-{"id":7,"expanded":false,"name":"Cam's House","order":5,"parentId":1,"scrollX":555,"scrollY":337.5,"quick":false},
-{"id":8,"expanded":true,"name":"Cape","order":7,"parentId":9,"scrollX":555,"scrollY":862.5,"quick":false},
-{"id":9,"expanded":false,"name":"Road to the Cape","order":6,"parentId":0,"scrollX":563,"scrollY":430.5,"quick":false}
+{"id":1,"expanded":true,"name":"Floroma Town Upper","order":1,"parentId":0,"scrollX":559,"scrollY":500.5,"quick":false},
+{"id":2,"expanded":true,"name":"Floroma Town Lower","order":9,"parentId":0,"scrollX":605,"scrollY":337.5,"quick":false},
+{"id":3,"expanded":true,"name":"Station Platform City","order":11,"parentId":0,"scrollX":555,"scrollY":329.5,"quick":false},
+{"id":4,"expanded":true,"name":"Nunya House 1F","order":4,"parentId":1,"scrollX":563,"scrollY":457.5,"quick":false},
+{"id":5,"expanded":true,"name":"Liv's House","order":2,"parentId":1,"scrollX":555,"scrollY":329.5,"quick":false},
+{"id":6,"expanded":false,"name":"Nunya House 2F","order":5,"parentId":1,"scrollX":555,"scrollY":478.5,"quick":false},
+{"id":7,"expanded":false,"name":"Cam's House","order":6,"parentId":1,"scrollX":555,"scrollY":337.5,"quick":false},
+{"id":8,"expanded":true,"name":"Cape","order":8,"parentId":9,"scrollX":555,"scrollY":862.5,"quick":false},
+{"id":9,"expanded":true,"name":"Road to the Cape","order":7,"parentId":0,"scrollX":555,"scrollY":415.5,"quick":false},
+{"id":10,"expanded":false,"name":"Station Platform Town","order":10,"parentId":0,"scrollX":555,"scrollY":390.5,"quick":false},
+{"id":11,"expanded":false,"name":"Liv's House Cutscene","order":3,"parentId":5,"scrollX":555,"scrollY":337.5,"quick":false}
 ]
