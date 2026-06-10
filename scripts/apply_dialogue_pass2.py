@@ -134,7 +134,7 @@ REPLACEMENTS = [
     ("Its very peaceful up here, \\. Dont you think", "It's peaceful up here, \\. Don't you think?"),
     ("The wind howling, \\. Trees in the breeze", "The wind in the trees, \\. the light on the water"),
     ("You feel, \\. Relaxed", "You feel \\. calm."),
-    ("This little game and this subathon might be coming to a", "This little game—and the subathon—might be coming to a"),
+    ("This little game and this subathon might be coming to a", "The subathon is over, and this little game was part of"),
     # Clock / wake
     ("Its 10am, Yet Obliviosa is not awake", "It's 10 a.m., yet Obliviosa still isn't awake."),
     ("Its Noon, Yet Obliviosa is still not awake", "It's noon, and Obliviosa still isn't awake."),
@@ -184,7 +184,7 @@ REPLACEMENTS = [
     ("Wait no... Dont say that. Thats not true!", "Wait, no—don't say that. That's not true!"),
     ("I never thought id feel so sad about a robot", "I never thought I'd feel this sad about a robot"),
     # Intro / tutorial
-    ("Welcome to the Obliviosa Subathon game", "Welcome to the Obliviosa Subathon game!"),
+    ("Welcome to the Obliviosa Subathon game", "Welcome to the Obliviosa game!"),
     ("You will laugh (i hope)", "You will laugh (I hope)."),
     ("You will cry (maybe)", "You might cry (maybe)."),
     ("And you will have a good time (you better)", "And you will have a good time—you'd better."),

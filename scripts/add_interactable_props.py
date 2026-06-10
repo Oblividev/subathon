@@ -37,7 +37,7 @@ MAP_PROPS: dict[int, list[tuple[list[str], str]]] = {
     ],
     4: [
         (["Fridge magnets from places you've never been.", "One says \"World's Okayest House\"."], "sign"),
-        (["A wall calendar stuck on \"Subathon Day 1\".", "Time is a social construct here."], "sign"),
+        (["A wall calendar crossed out after \"Subathon Day 1\".", "Time is a social construct here."], "sign"),
         (["Coat rack with one hoodie.", "It's seen things."], "prop"),
     ],
     5: [
