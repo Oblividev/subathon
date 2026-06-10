@@ -1,6 +1,6 @@
 [
 null,
-{"id":1,"expanded":true,"name":"Floroma Town Upper E","order":1,"parentId":0,"scrollX":779,"scrollY":544.5,"quick":false},
+{"id":1,"expanded":true,"name":"Floroma Town Upper E","order":1,"parentId":0,"scrollX":710,"scrollY":624.5,"quick":false},
 {"id":2,"expanded":false,"name":"Floroma Town Lower E","order":6,"parentId":0,"scrollX":789,"scrollY":329.5,"quick":false},
 {"id":3,"expanded":false,"name":"Floroma Town Upper W","order":7,"parentId":0,"scrollX":555,"scrollY":565.5,"quick":false},
 {"id":4,"expanded":true,"name":"Nunya House 1F","order":3,"parentId":1,"scrollX":555,"scrollY":424.5,"quick":false},

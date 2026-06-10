@@ -1,4 +1,4 @@
 [
 null,
-{"id":1,"battlerName":"v2LivBattle","characterIndex":0,"characterName":"v2LivBase","classId":1,"equips":[2,0,0,3,0],"faceIndex":0,"faceName":"LivFaceV1","traits":[],"initialLevel":1,"maxLevel":99,"name":"Liv","nickname":"","note":"","profile":""}
+{"id":1,"battlerName":"v2LivBattle","characterIndex":0,"characterName":"v2LivBase","classId":1,"equips":[0,0,0,0,0],"faceIndex":0,"faceName":"LivFaceV1","traits":[],"initialLevel":1,"maxLevel":1,"name":"Liv","nickname":"","note":"","profile":""}
 ]
