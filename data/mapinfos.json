@@ -1,10 +1,10 @@
 [
 null,
-{"id":1,"expanded":true,"name":"Floroma Town Upper","order":1,"parentId":0,"scrollX":770,"scrollY":677.5,"quick":false},
+{"id":1,"expanded":true,"name":"Floroma Town Upper","order":1,"parentId":0,"scrollX":770,"scrollY":670.5,"quick":false},
 {"id":2,"expanded":true,"name":"Floroma Town Lower","order":9,"parentId":0,"scrollX":661,"scrollY":329.5,"quick":false},
 {"id":3,"expanded":true,"name":"Station Platform City","order":14,"parentId":0,"scrollX":555,"scrollY":329.5,"quick":false},
 {"id":4,"expanded":true,"name":"Nunya House 1F","order":4,"parentId":1,"scrollX":563,"scrollY":457.5,"quick":false},
-{"id":5,"expanded":true,"name":"Liv's House","order":2,"parentId":1,"scrollX":555,"scrollY":337.5,"quick":false},
+{"id":5,"expanded":true,"name":"Liv's House","order":2,"parentId":1,"scrollX":555,"scrollY":329.5,"quick":false},
 {"id":6,"expanded":false,"name":"Nunya House 2F","order":5,"parentId":1,"scrollX":555,"scrollY":446.5,"quick":false},
 {"id":7,"expanded":true,"name":"Convenience Store","order":16,"parentId":0,"scrollX":555,"scrollY":337.5,"quick":false},
 {"id":8,"expanded":true,"name":"Cape","order":8,"parentId":9,"scrollX":555,"scrollY":862.5,"quick":false},
@@ -15,7 +15,7 @@ null,
 {"id":13,"expanded":false,"name":"Pog Cubs 2F","order":11,"parentId":2,"scrollX":555,"scrollY":337.5,"quick":false},
 {"id":14,"expanded":false,"name":"Nova's House","order":6,"parentId":1,"scrollX":555,"scrollY":337.5,"quick":false},
 {"id":15,"expanded":true,"name":"Stage","order":17,"parentId":7,"scrollX":555,"scrollY":384.5,"quick":false},
-{"id":16,"expanded":false,"name":"???","order":12,"parentId":0,"scrollX":555,"scrollY":910.5,"quick":false},
-{"id":17,"expanded":false,"name":"Start","order":18,"parentId":0,"scrollX":0,"scrollY":0,"quick":false},
+{"id":16,"expanded":false,"name":"???","order":12,"parentId":0,"scrollX":563,"scrollY":910.5,"quick":false},
+{"id":17,"expanded":false,"name":"Start","order":18,"parentId":0,"scrollX":555,"scrollY":329.5,"quick":false},
 {"id":18,"expanded":false,"name":"Parking Lot","order":15,"parentId":0,"scrollX":555,"scrollY":766.5,"quick":false}
 ]
