@@ -210,6 +210,10 @@ def main():
 
     issues = []
     for text, sources in sorted(seen_text.items(), key=lambda x: x[0].lower()):
+        # Credits donor list: usernames, not prose
+        if re.match(r"^\s*-\s+\S", text) and " " not in text.strip().split(maxsplit=1)[-1][:20]:
+            if not re.search(r"\b(the|and|you|your|dont|its)\b", text, re.I):
+                continue
         bad_words = set()
         for token in tokenize_for_spellcheck(text):
             word = token.lower()
