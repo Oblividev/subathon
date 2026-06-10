@@ -15,7 +15,7 @@ REPLACEMENTS = [
     ),
     (
         "close, but the impact you've had is unparalleled.",
-        "it—but the impact you've had is unparalleled.",
+        "it, but the impact you've had is unparalleled.",
     ),
     (
         "Throughout this anniversary event, every sub, every",
@@ -23,7 +23,7 @@ REPLACEMENTS = [
     ),
     (
         "donation, and every single bit has increased the timer all",
-        "donation, and every single bit kept the timer going—all",
+        "donation, and every single bit kept the timer going, all",
     ),
     (
         "Oh this was during the halloween subathon",
@@ -66,7 +66,7 @@ def patch_plugins() -> None:
 def main() -> None:
     n = patch_maps()
     patch_plugins()
-    print(f"done — {n} map file(s) changed")
+    print(f"done: {n} map file(s) changed")
 
 
 if __name__ == "__main__":
