@@ -10,26 +10,27 @@
         <link rel="stylesheet" type="text/css" href="css/game.css">
         <title>Obliviosa</title>
         <style>
-            .build-info {
+            #build-info {
                 position: fixed;
-                right: 10px;
+                left: 10px;
                 bottom: 10px;
-                color: #aaa;
-                font-size: 0.9em;
-                background: rgba(0,0,0,0.4);
-                padding: 4px 10px;
+                color: #ccc;
+                background: rgba(0,0,0,0.6);
+                padding: 6px 16px;
                 border-radius: 6px;
-                z-index: 9999;
+                font-size: 13px;
+                font-family: monospace, monospace;
+                z-index: 1000;
                 pointer-events: none;
-                font-family: monospace;
+                user-select: none;
             }
         </style>
     </head>
     <body style="background-color: black">
         <script type="text/javascript" src="js/main.js"></script>
-        <div class="build-info">
-            Build 6
-            Built on 24/05/2026 at 4:29 AM BST
+        <div id="build-info">
+            Build 1<br>
+            Build Date: May 24, 2026 @ 1:58 PM
         </div>
     </body>
 </html>
