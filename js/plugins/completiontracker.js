@@ -9,26 +9,26 @@
  *
  * @help CompletionTracker.js
  *
- * Uses Variable 1 ("People Met") as the interaction count and Variable 2 ("%")
- * as the completion percentage. NPCs already increment Variable 1 via events;
- * tagged interactables are counted on first interaction.
+ * Variable 1 ("People Met") is incremented only by NPC event commands.
+ * Completion % counts NPCs (var 1) plus tagged interactables (tracked via
+ * self switch A on first examine; this plugin never writes Variable 1).
  *
  * @param countVariableId
- * @text Count Variable
+ * @text People Met Variable
  * @type variable
  * @default 1
- * @desc Variable that stores how many NPCs/interactables have been found.
+ * @desc NPC dialogue counter (incremented by events, not this plugin).
+ *
+ * @param interactNoteTag
+ * @text Interactable Note Tag
+ * @default auto-added interactable
+ * @desc Must match SubtleInteractHint / prop events.
  *
  * @param percentVariableId
  * @text Percent Variable
  * @type variable
  * @default 2
  * @desc Variable that stores completion percentage (0-100).
- *
- * @param interactNoteTag
- * @text Interactable Note Tag
- * @default auto-added interactable
- * @desc Must match SubtleInteractHint / prop events.
  *
  * @param label
  * @text HUD Label
@@ -81,15 +81,21 @@
 
     const CompletionTracker = {
         _totalTargets: 0,
+        _interactableTargets: [],
 
         init() {
-            this._totalTargets = this.scanTotalTargets();
+            this._totalTargets = 0;
+            this._interactableTargets = [];
+            this.scanTargets();
         },
 
-        scanTotalTargets() {
+        scanTargets() {
             let total = 0;
+            const interactables = [];
             if (!$dataMapInfos) {
-                return 0;
+                this._totalTargets = 0;
+                this._interactableTargets = interactables;
+                return;
             }
             for (let mapId = 1; mapId < $dataMapInfos.length; mapId++) {
                 if (!$dataMapInfos[mapId]) {
@@ -100,12 +106,17 @@
                     continue;
                 }
                 for (const event of map.events) {
-                    if (event && this.isCountableEvent(event)) {
-                        total++;
+                    if (!event || !this.isCountableEvent(event)) {
+                        continue;
+                    }
+                    total++;
+                    if (this.isInteractableOnly(event)) {
+                        interactables.push({ mapId, eventId: event.id });
                     }
                 }
             }
-            return total;
+            this._totalTargets = total;
+            this._interactableTargets = interactables;
         },
 
         loadMapData(mapId) {
@@ -161,11 +172,11 @@
             return [mapId, eventId, letter];
         },
 
-        isSelfSwitchOff(mapId, eventId, letter = "A") {
+        isSelfSwitchOn(mapId, eventId, letter = "A") {
             if (!$gameSelfSwitches) {
-                return true;
+                return false;
             }
-            return !$gameSelfSwitches.value(this.selfSwitchKey(mapId, eventId, letter));
+            return !!$gameSelfSwitches.value(this.selfSwitchKey(mapId, eventId, letter));
         },
 
         setSelfSwitchOn(mapId, eventId, letter = "A") {
@@ -173,6 +184,24 @@
                 return;
             }
             $gameSelfSwitches.setValue(this.selfSwitchKey(mapId, eventId, letter), true);
+        },
+
+        countInteractablesFound() {
+            if (!$gameSelfSwitches || !this._interactableTargets.length) {
+                return 0;
+            }
+            let found = 0;
+            for (const target of this._interactableTargets) {
+                if (this.isSelfSwitchOn(target.mapId, target.eventId)) {
+                    found++;
+                }
+            }
+            return found;
+        },
+
+        progressCount() {
+            const peopleMet = $gameVariables ? Math.max(0, $gameVariables.value(COUNT_VAR)) : 0;
+            return peopleMet + this.countInteractablesFound();
         },
 
         onEventStarted(event) {
@@ -192,23 +221,19 @@
             }
             const mapId = $gameMap.mapId();
             const eventId = event.eventId();
-            if (!this.isSelfSwitchOff(mapId, eventId)) {
+            if (this.isSelfSwitchOn(mapId, eventId)) {
                 return;
             }
             this.setSelfSwitchOn(mapId, eventId);
-            if (!$gameVariables) {
-                return;
-            }
-            const count = $gameVariables.value(COUNT_VAR);
-            $gameVariables.setValue(COUNT_VAR, count + 1);
+            this.refreshPercent();
         },
 
         refreshPercent() {
             if (!$gameVariables) {
                 return 0;
             }
-            const total = Math.max(1, this._totalTargets || this.scanTotalTargets());
-            const count = Math.max(0, $gameVariables.value(COUNT_VAR));
+            const total = Math.max(1, this._totalTargets || 0);
+            const count = this.progressCount();
             const clamped = Math.min(count, total);
             const percent = Math.floor((clamped * 100) / total);
             if ($gameVariables.value(PERCENT_VAR) !== percent) {
