@@ -4,7 +4,7 @@
 //=============================================================================
 /*:
  * @target MZ
- * @plugindesc v1.0 Hides the main menu gold window (unused in this game).
+ * @plugindesc v1.1 Hides the main menu gold window (unused in this game).
  * @author Obliviosa
  *
  * @help HideMenuGold.js
@@ -30,52 +30,30 @@
     const params = PluginManager.parameters(pluginName);
     const PLAYTIME_WIDTH = Number(params.playtimeWidth || 220);
 
-    const hideGoldWindow = function(scene) {
-        const gold = scene._goldWindow;
-        if (!gold) {
-            return;
-        }
-        gold.visible = false;
-        gold.opacity = 0;
-        if (gold.close) {
-            gold.close();
-        }
-    };
-
     const refreshBottomWindows = function(scene) {
-        if (scene._playtimeWindow && scene.canCreatePlaytimeWindow?.()) {
+        const playtime = scene._playtimeWindow;
+        if (playtime && scene.canCreatePlaytimeWindow?.()) {
             const playRect = scene.playtimeWindowRect();
-            scene._playtimeWindow.move(
-                playRect.x,
-                playRect.y,
-                playRect.width,
-                playRect.height
-            );
-            scene._playtimeWindow.refresh();
+            playtime.move(playRect.x, playRect.y, playRect.width, playRect.height);
+            playtime.refresh();
         }
-        if (scene._variableWindow && scene.canCreateVariableWindow?.()) {
+        const variable = scene._variableWindow;
+        if (variable && scene.canCreateVariableWindow?.()) {
             const varRect = scene.variableWindowRect();
-            scene._variableWindow.move(
-                varRect.x,
-                varRect.y,
-                varRect.width,
-                varRect.height
-            );
-            scene._variableWindow.refresh();
+            variable.move(varRect.x, varRect.y, varRect.width, varRect.height);
+            variable.refresh();
         }
     };
 
     // Mobile / top styles: playtime on the left, variables fill the rest of the bar.
     Scene_Menu.prototype.playtimeWindowRectTopStyle = function() {
-        const rows = 1;
-        const wh = this.calcWindowHeight(rows, false);
+        const wh = this.calcWindowHeight(1, false);
         const wy = this.mainAreaBottom() - wh;
         return new Rectangle(0, wy, PLAYTIME_WIDTH, wh);
     };
 
     Scene_Menu.prototype.variableWindowRectTopStyle = function() {
-        const rows = 1;
-        const wh = this.calcWindowHeight(rows, false);
+        const wh = this.calcWindowHeight(1, false);
         const wy = this.mainAreaBottom() - wh;
         const playtimeWidth = this._playtimeWindow
             ? this._playtimeWindow.width
@@ -85,16 +63,17 @@
         return new Rectangle(wx, wy, ww, wh);
     };
 
-    const _Scene_Menu_createGoldWindow = Scene_Menu.prototype.createGoldWindow;
+    // Stub window satisfies VisuMZ layout checks without building a full gold UI.
     Scene_Menu.prototype.createGoldWindow = function() {
-        _Scene_Menu_createGoldWindow.call(this);
-        hideGoldWindow(this);
+        const rect = new Rectangle(0, 0, 0, 0);
+        this._goldWindow = new Window_Base(rect);
+        this._goldWindow.visible = false;
+        this.addWindow(this._goldWindow);
     };
 
     const _Scene_Menu_create = Scene_Menu.prototype.create;
     Scene_Menu.prototype.create = function() {
         _Scene_Menu_create.call(this);
-        hideGoldWindow(this);
         refreshBottomWindows(this);
     };
 })();

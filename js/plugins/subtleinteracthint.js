@@ -4,7 +4,7 @@
 //=============================================================================
 /*:
  * @target MZ
- * @plugindesc v1.1 Smaller, softer balloon hint for tagged examine events.
+ * @plugindesc v1.2 Smaller, softer balloon hint for tagged examine events.
  * @author Obliviosa
  *
  * @help SubtleInteractHint.js
@@ -83,6 +83,7 @@
     const HINT_OPACITY = Number(params.opacity || 0.62);
     const DURATION_RATE = Number(params.durationRate || 0.55);
     const Y_OFFSET = Number(params.yOffset || 6);
+    const UPDATE_INTERVAL = 8;
 
     //-----------------------------------------------------------------------------
     // Sprite_SubtleBalloon
@@ -122,9 +123,19 @@
 
     const SubtleInteractHint = {
         _cooldowns: new Map(),
+        _taggedEvents: [],
+        _lastPlayerX: -1,
+        _lastPlayerY: -1,
+        _lastPlayerDir: -1,
+        _updateTick: 0,
 
         clear() {
             this._cooldowns.clear();
+            this._taggedEvents = [];
+            this._lastPlayerX = -1;
+            this._lastPlayerY = -1;
+            this._lastPlayerDir = -1;
+            this._updateTick = 0;
         },
 
         key(mapId, eventId) {
@@ -156,6 +167,35 @@
 
         isTaggedEvent(eventData) {
             return !!(eventData && eventData.note && eventData.note.includes(NOTE_TAG));
+        },
+
+        rebuildTaggedEvents() {
+            this._taggedEvents = [];
+            if (!$gameMap) {
+                return;
+            }
+            for (const event of $gameMap.events()) {
+                if (event && this.isTaggedEvent(event.event())) {
+                    this._taggedEvents.push(event);
+                }
+            }
+        },
+
+        playerContextChanged() {
+            const px = $gamePlayer.x;
+            const py = $gamePlayer.y;
+            const dir = $gamePlayer.direction();
+            if (
+                px !== this._lastPlayerX ||
+                py !== this._lastPlayerY ||
+                dir !== this._lastPlayerDir
+            ) {
+                this._lastPlayerX = px;
+                this._lastPlayerY = py;
+                this._lastPlayerDir = dir;
+                return true;
+            }
+            return false;
         },
 
         requestHint(event) {
@@ -212,27 +252,38 @@
             );
         },
 
-        distanceToPlayer(event) {
-            const px = $gamePlayer.x;
-            const py = $gamePlayer.y;
-            return Math.abs(px - event.x) + Math.abs(py - event.y);
-        },
-
-        hintableEvents() {
-            return $gameMap
-                .events()
-                .filter(event => event && this.isTaggedEvent(event.event()))
-                .filter(event => !REQUIRE_FACING || this.playerCanActionButton(event))
-                .filter(event => !event.isBalloonPlaying())
-                .filter(event => !this.onCooldown($gameMap.mapId(), event.eventId()))
-                .sort((a, b) => this.distanceToPlayer(a) - this.distanceToPlayer(b));
+        nearestHintableEvent() {
+            const mapId = $gameMap.mapId();
+            let best = null;
+            let bestDist = Infinity;
+            for (const event of this._taggedEvents) {
+                if (event._erased || event.isBalloonPlaying()) {
+                    continue;
+                }
+                if (REQUIRE_FACING && !this.playerCanActionButton(event)) {
+                    continue;
+                }
+                if (this.onCooldown(mapId, event.eventId())) {
+                    continue;
+                }
+                const dist = Math.abs($gamePlayer.x - event.x) + Math.abs($gamePlayer.y - event.y);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = event;
+                }
+            }
+            return best;
         },
 
         update() {
             if (!this.canShowHints()) {
                 return;
             }
-            const event = this.hintableEvents()[0];
+            this._updateTick++;
+            if (!this.playerContextChanged() && this._updateTick % UPDATE_INTERVAL !== 0) {
+                return;
+            }
+            const event = this.nearestHintableEvent();
             if (!event) {
                 return;
             }
@@ -262,6 +313,7 @@
     Scene_Map.prototype.start = function() {
         _Scene_Map_start.call(this);
         SubtleInteractHint.clear();
+        SubtleInteractHint.rebuildTaggedEvents();
     };
 
     const _Scene_Map_update = Scene_Map.prototype.update;
